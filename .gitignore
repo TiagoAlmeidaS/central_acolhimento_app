@@ -1,45 +1,83 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
+# =========================
+# OS / Editor
+# =========================
 .DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
+*.swp
+*.swo
 .idea/
+*.iml
+.vscode/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# =========================
+# Logs
+# =========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# =========================
+# Node / JS / TS
+# =========================
+node_modules/
+.pnp/
+.pnp.js
+*.tsbuildinfo
+
+# =========================
+# Env / secrets
+# =========================
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# =========================
+# Build outputs
+# =========================
+dist/
+build/
+coverage/
+.nyc_output/
+server_dist/
+static-build/
+web-build/
+
+# =========================
+# Expo / React Native
+# =========================
+.expo/
+.expo-shared/
+.metro-cache/
+node_modules/.cache/
+
+# If you run `expo prebuild`, these are generated folders
+android/
+ios/
+
+# =========================
+# Local DB files (dev)
+# =========================
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+
+# =========================
+# Project-local scratch / attachments
+# =========================
+attached_assets/
+
+# =========================
+# Flutter (legacy) - ignore local SDK only
+# =========================
+.fvm/flutter_sdk
+.fvm/flutter_sdk/
 .dart_tool/
+.flutter-plugins
 .flutter-plugins-dependencies
+.metadata
 .pub-cache/
 .pub/
-/build/
-/coverage/
-
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
