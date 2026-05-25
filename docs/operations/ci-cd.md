@@ -31,7 +31,9 @@ flowchart LR
 | Test      | `npm test`          | qualquer teste vermelho             |
 | Build     | `npm run build`     | erro Next.js                        |
 
-Envs do CI são **dummy** (`sk_test_dummy`, etc.) — só pra satisfazer a validação Zod. Segredos reais ficam no Vercel e no GitHub Secrets, **nunca aqui**.
+O CI **não recebe nenhuma credencial**. Como [`src/lib/env.ts`](../../src/lib/env.ts) marca todas as variáveis externas como `.optional()` (ou com default no Zod), build e testes passam sem nenhum segredo. As envs reais vivem apenas no painel da Vercel — `Settings → Environment Variables` — separadas por escopo (Production/Preview/Development).
+
+Se uma futura feature precisar de credencial obrigatória no CI (ex.: e2e contra DB de teste), o caminho é **GitHub → Settings → Secrets and variables → Actions**, e referenciar via `${{ secrets.NOME }}` no workflow.
 
 ### `.github/workflows/pr-checks.yml`
 

@@ -37,8 +37,9 @@ Inventário canônico de variáveis e onde cada uma é configurada.
 | ----------------------------- | -------------------------------------------------------- |
 | Dev pessoal                   | `.env.local` (gitignored)                                |
 | Vercel Preview/Production     | **Vercel → Settings → Environment Variables**            |
-| CI dummy (não-secretos)       | `env:` block em `.github/workflows/ci.yml`               |
 | CI segredos (se necessário)   | **GitHub → Settings → Secrets and variables → Actions**  |
+
+> O CI **não carrega nenhuma env** — todas as variáveis de `src/lib/env.ts` são `.optional()` ou têm default, então build/test passam limpos. Segredos reais ficam só na Vercel.
 
 ## Como rotacionar uma credencial
 
@@ -51,7 +52,8 @@ Inventário canônico de variáveis e onde cada uma é configurada.
 ## Como adicionar uma nova env
 
 1. Adicione o campo em [`src/lib/env.ts`](../../src/lib/env.ts) com validação Zod.
+   - Prefira `.optional()` ou `.default(...)` para manter o CI sem credenciais.
 2. Adicione a linha em [`.env.example`](../../.env.example).
 3. Atualize esta tabela.
-4. Adicione dummy no `env:` do CI se a env for obrigatória.
-5. Configure na Vercel nos escopos relevantes antes do merge.
+4. Configure na Vercel nos escopos relevantes (Production/Preview) antes do merge.
+5. **Se** a env for obrigatória em testes do CI (ex.: e2e contra DB real), adicione em **GitHub → Secrets** e referencie no workflow via `${{ secrets.NOME }}`.
