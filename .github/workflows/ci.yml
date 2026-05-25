@@ -21,6 +21,8 @@ jobs:
     env:
       # Variáveis dummy só para o build/test não estourar validação de env (Zod).
       # Não são segredos reais. Os reais vivem no Vercel/GitHub Secrets.
+      # Opt-in para Node 24 nas JS actions (default a partir de 02/06/2026).
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
       NODE_ENV: test
       NEXT_PUBLIC_APP_URL: http://localhost:3000
       DATABASE_URL: postgres://ci:ci@localhost:5432/ci
@@ -62,13 +64,3 @@ jobs:
 
       - name: Build (Next.js production)
         run: npm run build
-
-      - name: Upload Next build artifacts
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: next-build-${{ github.sha }}
-          path: |
-            .next/
-            !.next/cache
-          retention-days: 7
