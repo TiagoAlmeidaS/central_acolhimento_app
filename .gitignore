@@ -1,29 +1,11 @@
 # =========================
-# OS / Editor
-# =========================
-.DS_Store
-*.swp
-*.swo
-.idea/
-*.iml
-.vscode/
-
-# =========================
-# Logs
-# =========================
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# =========================
-# Node / JS / TS
+# Node / Next.js
 # =========================
 node_modules/
-.pnp/
-.pnp.js
+.next/
+out/
 *.tsbuildinfo
+next-env.d.ts
 
 # =========================
 # Env / secrets
@@ -41,21 +23,30 @@ dist/
 build/
 coverage/
 .nyc_output/
-server_dist/
-static-build/
-web-build/
 
 # =========================
-# Expo / React Native
+# Tests
 # =========================
-.expo/
-.expo-shared/
-.metro-cache/
-node_modules/.cache/
+playwright-report/
+test-results/
 
-# If you run `expo prebuild`, these are generated folders
-android/
-ios/
+# =========================
+# Logs
+# =========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+*.swp
+*.swo
+.idea/
+*.iml
+.vscode/
 
 # =========================
 # Local DB files (dev)
@@ -69,15 +60,9 @@ ios/
 # Project-local scratch / attachments
 # =========================
 attached_assets/
+uploads/
 
 # =========================
-# Flutter (legacy) - ignore local SDK only
+# Vercel
 # =========================
-.fvm/flutter_sdk
-.fvm/flutter_sdk/
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.metadata
-.pub-cache/
-.pub/
+.vercel/

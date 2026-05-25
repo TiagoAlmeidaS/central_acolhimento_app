@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Lint · Typecheck · Test · Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      # Variáveis dummy só para o build/test não estourar validação de env (Zod).
+      # Não são segredos reais. Os reais vivem no Vercel/GitHub Secrets.
+      NODE_ENV: test
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+      DATABASE_URL: postgres://ci:ci@localhost:5432/ci
+      AUTH_SECRET: ci-dummy-auth-secret-with-at-least-thirty-two-chars
+      AUTH_TRUST_HOST: "true"
+      WHATSAPP_TOKEN: dummy-whatsapp-token
+      WHATSAPP_PHONE_NUMBER_ID: dummy-phone-id
+      WHATSAPP_VERIFY_TOKEN: dummy-verify-token
+      WHATSAPP_DEV_MODE: "true"
+      STRIPE_SECRET_KEY: sk_test_dummy
+      STRIPE_WEBHOOK_SECRET: whsec_dummy
+      STRIPE_PRICE_ESSENCIAL: price_dummy_essencial
+      STRIPE_PRICE_PRO: price_dummy_pro
+      ANTHROPIC_API_KEY: sk-ant-dummy
+      UPSTASH_REDIS_REST_URL: https://dummy.upstash.io
+      UPSTASH_REDIS_REST_TOKEN: dummy-token
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test -- --reporter=verbose
+
+      - name: Build (Next.js production)
+        run: npm run build
+
+      - name: Upload Next build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: next-build-${{ github.sha }}
+          path: |
+            .next/
+            !.next/cache
+          retention-days: 7

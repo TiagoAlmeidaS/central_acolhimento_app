@@ -1,14 +1,16 @@
-import { defineConfig } from "drizzle-kit";
+import type { Config } from "drizzle-kit";
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL, ensure the database is provisioned");
-}
-
-export default defineConfig({
-  out: "./migrations",
-  schema: "./shared/schema.ts",
+/**
+ * Cada spec é dona dos arquivos em `src/db/schema/<seu-agregado>.ts`.
+ * `src/db/schema/index.ts` reexporta tudo e é shared infra (sem dono específico).
+ */
+export default {
+  schema: "./src/db/schema/index.ts",
+  out: "./src/db/migrations",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL ?? "",
   },
-});
+  strict: true,
+  verbose: true,
+} satisfies Config;

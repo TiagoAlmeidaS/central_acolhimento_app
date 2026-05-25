@@ -1,0 +1,43 @@
+export type { IconBaseProps } from "./base";
+export { IconSvg } from "./base";
+
+export {
+  IconArrowLeft,
+  IconArrowRight,
+  IconChevronRight,
+  IconChevronDown,
+  IconPlus,
+  IconX,
+  IconCheck,
+  IconSearch,
+  IconHome,
+  IconCalendar,
+  IconMessage,
+  IconSettings,
+  IconUser,
+  IconUsers,
+  IconPhone,
+  IconChurch,
+  IconLock,
+  IconHourglass,
+  IconRefresh,
+  IconLogout,
+  IconHelpCircle,
+  IconShield,
+  IconWhatsapp,
+  IconMore,
+  IconMapPin,
+  IconVideo,
+  IconClock,
+  IconHeart,
+  IconSparkle,
+  IconSwap,
+  IconBell,
+  IconSend,
+  IconMic,
+  IconDoc,
+  IconChart,
+  IconFilter,
+} from "./stroked";
+
+export { IconWhatsappFilled, IconUsersFilled, IconVerified } from "./filled";
